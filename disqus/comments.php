@@ -100,15 +100,15 @@ if (DISQUS_DEBUG) {
 <?php
     $count = 0;
     foreach ((array)$comments as $comment) {
-        $comment_type = get_comment_type();
+        $comment_type = get_comment_type($comment->comment_ID);
         if ( $comment_type != 'comment' ) {
             if( $count ) { echo ','; }
 ?>
             {
-                'author_name':    <?php echo cf_json_encode(get_comment_author()); ?>,
-                'author_url':    <?php echo cf_json_encode(get_comment_author_url()); ?>,
-                'date':            <?php echo cf_json_encode(get_comment_date('m/d/Y h:i A')); ?>,
-                'excerpt':        <?php echo cf_json_encode(str_replace(array("\r\n", "\n", "\r"), '<br />', get_comment_excerpt())); ?>,
+                'author_name':    <?php echo cf_json_encode(get_comment_author( $comment->comment_ID )); ?>,
+                'author_url':    <?php echo cf_json_encode(get_comment_author_url( $comment->comment_ID )); ?>,
+                'date':            <?php echo cf_json_encode(get_comment_date('m/d/Y h:i A', $comment->comment_ID)); ?>,
+                'excerpt':        <?php echo cf_json_encode(str_replace(array("\r\n", "\n", "\r"), '<br />', get_comment_excerpt( $comment->comment_ID ))); ?>,
                 'type':            <?php echo cf_json_encode($comment_type); ?>
             }
 <?php
